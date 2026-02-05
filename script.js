@@ -89,6 +89,30 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Success/Error message functions
+function showFormSuccess() {
+    const modalContent = document.querySelector('.modal-content');
+    modalContent.innerHTML = `
+        <button class="modal-close" aria-label="Close" onclick="closeContactModal()">✕</button>
+        <div class="success-message">
+            <div class="success-icon">✓</div>
+            <h2>Message sent!</h2>
+            <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+        </div>
+    `;
+}
+
+function showFormMessage(message, isError) {
+    const existingMsg = document.querySelector('.form-message');
+    if (existingMsg) existingMsg.remove();
+
+    const form = document.getElementById('contactForm');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'form-message' + (isError ? ' error' : '');
+    msgDiv.textContent = message;
+    form.insertBefore(msgDiv, form.firstChild);
+}
+
 // Contact Modal Functions
 function openContactModal() {
     const modal = document.getElementById('contactModal');
@@ -147,11 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (error) {
             console.error('Error:', error);
-            alert('Something went wrong. Please try again.');
+            showFormMessage('Something went wrong. Please try again.', true);
         } else {
-            alert('Thanks! We\'ll get back to you soon.');
+            showFormSuccess();
             form.reset();
-            closeContactModal();
         }
 
         submitBtn.textContent = originalText;
