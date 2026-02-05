@@ -1,7 +1,7 @@
 // Supabase client
 const supabaseUrl = 'https://ivbgifctlqxiukwoulte.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YmdpZmN0bHF4aXVrd291bHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMzUxOTYsImV4cCI6MjA4NTgxMTE5Nn0.AAAsdamFj4LMrNpKkyFlgXex0NX-smx2p6I5sswyqPs';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Initialize Lenis smooth scroll for agentic feel
 const lenis = new Lenis({
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = Object.fromEntries(formData);
 
         // Send to Supabase
-        const { error } = await supabase
+        const { error } = await supabaseClient
             .from('contacts')
             .insert([{
                 name: data.name,
